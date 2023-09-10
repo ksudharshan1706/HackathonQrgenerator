@@ -16,8 +16,19 @@ const QrView = () => {
     const [bgcolor, setBgColor] = useState('#9DDD72');
     const [bgdisplayColorPicker, setBgDisplayColorPicker] = useState(false);
     const [type,setType] = useState("")
-    // context
     
+    const downloadQRCode = () => {
+        const canvas = document.getElementById("qr-gen").src;
+        const pngUrl = qr.replace("image/png", "image/octet-stream");
+        let downloadLink = document.createElement("a");
+        downloadLink.href = pngUrl;
+        downloadLink.target = "_blank"
+        downloadLink.download = `${qr}.png`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      };
+
     const handleChange = color => setColor(color.hex);
     const handleChange1 = bgcolor => setBgColor(bgcolor.hex)
   
@@ -43,7 +54,7 @@ const QrView = () => {
             <br/>
             <TextField id="outlined-basic" label="height" variant="outlined" onChange={(e)=>setHeight1(e.target.value)}/>
             <br/>
-            <TextField id="outlined-basic" label="png/gif/jpeg/jpg/svg/eps" variant="outlined" onChange={(e)=>setType(e.target.value)}/>
+            {/* <TextField id="outlined-basic" label="png/gif/jpeg/jpg/svg/eps" variant="outlined" onChange={(e)=>setType(e.target.value)}/> */}
 
         <div className='colors'>
             <div className='color'>
@@ -51,14 +62,13 @@ const QrView = () => {
                 <div style={{width:"20px",height:"20px"}}>
                     <div
                     onClick={() => setDisplayColorPicker(!displayColorPicker)}
-                    // className="overflow"
                     style={{background: color ,width:"20px",height:"20px",cursor:"pointer",border:"2px solid"}}
                     ></div>
                     <span>{color}</span>
                 </div>
                 {
                     displayColorPicker && (
-                    <div className="absolute mt-2 overflow">
+                    <div className="overflow">
                         <ChromePicker
                         color={color} onChange={handleChange}
                         />
@@ -71,7 +81,6 @@ const QrView = () => {
                     <div style={{width:"20px",height:"20px"}}>
                         <div
                         onClick={() => setBgDisplayColorPicker(!bgdisplayColorPicker)}
-                        // className="overflow"
                         style={{background: bgcolor ,width:"20px",height:"20px",cursor:"pointer",border:"2px solid"}}
                         ></div>
                         <span>{bgcolor}</span>
@@ -89,9 +98,18 @@ const QrView = () => {
         </div>
             <br/>
             <Button variant="contained" onClick={getQR}>Generate</Button>
+            <p>
+            
+      </p>
         </div>
+        
         <div className='rightContainer'>
-            {qr!=""?<img src={qr} alt='qrcode'/>:null}
+            {qr!=""?<img id="qr-gen" src={qr} alt='qrcode'/>:null}
+            <br/>
+            <br/>
+            <Button variant="contained" type="button" onClick={downloadQRCode}>
+                Download QR Code
+            </Button>
         </div>
     </div>
   )
