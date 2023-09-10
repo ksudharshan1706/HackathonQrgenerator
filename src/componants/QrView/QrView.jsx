@@ -48,7 +48,7 @@ const QrView = () => {
    
     <div className='mainContainer'>
         <div className='leftContainer'>
-            <TextField id="outlined-basic" label="data" variant="outlined"  onChange={(e)=>setData1(e.target.value)}/>
+            <TextField style={{minWidth:"100px"}} id="outlined-basic" label="data" variant="outlined"  onChange={(e)=>setData1(e.target.value)}/>
             <br/>
             <TextField id="outlined-basic" label="width" variant="outlined" onChange={(e)=>setWidth1(e.target.value)}/>
             <br/>
@@ -64,7 +64,7 @@ const QrView = () => {
                     onClick={() => setDisplayColorPicker(!displayColorPicker)}
                     style={{background: color ,width:"20px",height:"20px",cursor:"pointer",border:"2px solid"}}
                     ></div>
-                    <span>{color}</span>
+                    {/* <span>{color}</span> */}
                 </div>
                 {
                     displayColorPicker && (
@@ -77,13 +77,13 @@ const QrView = () => {
                 }
             </div>
             <div className='bgcolor'>
-                    <div>bgColor</div>
+                    <div>bgColor</div>{" "}
                     <div style={{width:"20px",height:"20px"}}>
                         <div
                         onClick={() => setBgDisplayColorPicker(!bgdisplayColorPicker)}
                         style={{background: bgcolor ,width:"20px",height:"20px",cursor:"pointer",border:"2px solid"}}
                         ></div>
-                        <span>{bgcolor}</span>
+                        {/* <span>{bgcolor}</span> */}
                     </div>
                     {
                         bgdisplayColorPicker && (
@@ -95,12 +95,10 @@ const QrView = () => {
                         )
                     }
             </div>
-        </div>
+            </div>
             <br/>
-            <Button variant="contained" onClick={getQR}>Generate</Button>
-            <p>
+            <Button style={{widows:"100px"}} variant="contained" type="button" onClick={getQR}>Generate Qr</Button>
             
-      </p>
         </div>
         
         <div className='rightContainer'>
